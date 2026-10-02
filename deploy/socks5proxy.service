@@ -1,0 +1,20 @@
+[Unit]
+Description=SOCKS5 Proxy Server
+After=network.target
+
+[Service]
+Type=notify
+WorkingDirectory=/opt/socks5proxy
+ExecStart=/usr/bin/dotnet /opt/socks5proxy/Socks5Proxy.dll
+Restart=on-failure
+RestartSec=5
+User=socks5
+Group=socks5
+# Harden the unit: no new privileges, private /tmp, read-only root filesystem.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/socks5proxy
+
+[Install]
+WantedBy=multi-user.target
